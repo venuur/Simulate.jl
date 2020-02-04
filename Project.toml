@@ -1,0 +1,13 @@
+name = "Simulate"
+uuid = "2ca20d71-c203-47a2-9fd4-da40e00541d5"
+authors = ["Carl Morris <carl.morris.world@outlook.com>"]
+version = "0.1.0"
+
+[compat]
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
