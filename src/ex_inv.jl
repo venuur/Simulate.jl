@@ -15,7 +15,7 @@ end
     time = 0
     onhand = 0
     inflight = 0
-    open_orders = Dict()  # PriorityQueue{OpenOrder.arrival_time, OpenOrder}
+    open_orders = Dict()  # OpenOrder.arrival_time => OpenOrder
     sales = 0
     lost = 0
     backordered = 0
