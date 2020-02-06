@@ -1,6 +1,7 @@
 module Simulate
 
 using StructArrays
+using RecipesBase
 
 export simulate, gethistory
 
@@ -19,13 +20,27 @@ end
 
 
 ## Simulation log object
-function Log(init, periods)
-    log = StructArray{typeof(init)}(undef, periods + 1)
-    log[1] = deepcopy(init)
-    return log
+struct Log
+    history
+
+    function Log(init, periods)
+        history = StructArray{typeof(init)}(undef, periods + 1)
+        history[1] = deepcopy(init)
+        return new(history)
+    end
 end
 
 # Accessors
-gethistory(log) = log
+gethistory(log) = log.history
+Base.setindex!(log::Log, v, i) = log.history[i] = v
+
+## Log visualization
+@recipe function f(log::Log, x::Symbol, ys::Vector{Symbol})
+    history = gethistory(log)
+    xv = getproperty(history, x)
+    for name in ys
+        @series (xv, getproperty(history, name))
+    end
+end
 
 end # module
